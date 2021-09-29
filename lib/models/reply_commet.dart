@@ -18,7 +18,7 @@ class ReplyComment {
     comment = snapshot.get('comment');
     timeCreated = snapshot.get("timeCreated");
     userID = snapshot.get('userID');
-    rootID = snapshot.get('rootID');
+    //rootID = snapshot.get('rootID');
     avatarUrl = snapshot.get('avatarUrl');
     userName = snapshot.get('userName');
   }

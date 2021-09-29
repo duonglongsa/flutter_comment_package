@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_comment_package/models/reply_commet.dart';
+import 'package:flutter_comment_package/services/firebase_services.dart';
 import 'package:get/get.dart';
 
 class RootComment {
@@ -10,7 +11,6 @@ class RootComment {
   late String userID;
   late String userName;
   late String avatarUrl;
-  late Stream<List<ReplyComment>> replyStream;
 
   final isShowingReply = false.obs;
 
@@ -20,7 +20,7 @@ class RootComment {
   List<ReplyComment> get replies => replyList.value;
 
 
-  RootComment(this.comment, this.commentId, this.timeCreated, this.replyStream);
+  RootComment(this.comment, this.commentId, this.timeCreated);
 
   RootComment.fromDocumentSnapshot(
       QueryDocumentSnapshot snapshot, String pID
@@ -32,7 +32,7 @@ class RootComment {
     postID = pID;
     avatarUrl = snapshot.get('avatarUrl');
     userName = snapshot.get('userName');
-    replyList.bindStream(replyStream);
+    replyList.bindStream(replyStream(postID, commentId));
   }
 
 }
